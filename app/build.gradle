@@ -1,0 +1,33 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.wolf.runner'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.wolf.runner"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        
+        // مهم جداً لدعم Node.js على معماريات الهواتف
+        ndk {
+            abiFilters "arm64-v8a", "armeabi-v7a"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    // مكتبة Node.js Mobile
+    implementation 'com.janeasystems.rn-nodejs-mobile:nodejs-mobile:18.0.0'
+}
