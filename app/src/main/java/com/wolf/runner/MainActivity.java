@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.janeasystems.nodejs_mobile.NodeJS; // تم تعديل المسار هنا
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btnSelectZip.setText("اختر ملف البوت (ZIP) للبدء");
         setContentView(btnSelectZip);
 
-        // طلب صلاحية قراءة الملفات (مهم جداً لأندرويد 11+)
+        // طلب صلاحية قراءة الملفات
         if (!Environment.isExternalStorageManager()) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
             intent.setData(Uri.parse("package:" + getPackageName()));
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == PICK_ZIP_REQUEST && resultCode == Activity.RESULT_OK) {
             if (data != null && data.getData() != null) {
                 Uri zipUri = data.getData();
-                // نسخ الملف إلى مساحة التطبيق الخاصة لتسهيل قراءته
                 File destFile = new File(getFilesDir(), "bot.zip");
                 try (InputStream is = getContentResolver().openInputStream(zipUri);
                      FileOutputStream os = new FileOutputStream(destFile)) {
@@ -54,10 +54,8 @@ public class MainActivity extends AppCompatActivity {
                         os.write(buffer, 0, length);
                     }
                     
-                    // بدء الخدمة وتمرير مسار الملف
                     Intent serviceIntent = new Intent(this, NodeService.class);
                     serviceIntent.putExtra("ZIP_PATH", destFile.getAbsolutePath());
-                    // مسار ملف التوكن (في مجلد التنزيلات)
                     serviceIntent.putExtra("TOKENS_PATH", "/storage/emulated/0/Download/wolf_tokens.json");
                     startForegroundService(serviceIntent);
                     Toast.makeText(this, "تم تجهيز الملف، جاري التشغيل...", Toast.LENGTH_LONG).show();
