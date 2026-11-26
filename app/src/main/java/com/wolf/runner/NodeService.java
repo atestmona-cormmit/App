@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
-import com.janeasystems.rn_nodejs_mobile.NodeJS;
+import com.janeasystems.nodejs_mobile.NodeJS; // تم تعديل المسار هنا
 import java.util.HashMap;
 
 public class NodeService extends Service {
@@ -26,7 +26,6 @@ public class NodeService extends Service {
             String zipPath = intent.getStringExtra("ZIP_PATH");
             String tokensPath = intent.getStringExtra("TOKENS_PATH");
 
-            // عرض إشعار دائم لمنع النظام من إغلاق الخدمة
             Notification notification = new Notification.Builder(this, "WolfChannel")
                     .setContentTitle("Wolf Runner")
                     .setContentText("جاري تشغيل البوت في الخلفية...")
@@ -44,7 +43,6 @@ public class NodeService extends Service {
 
         mNodeJS = new NodeJS(this);
         
-        // تمرير المسارات لبيئة Node.js
         HashMap<String, String> env = new HashMap<>();
         env.put("ZIP_PATH", zipPath);
         env.put("TOKENS_PATH", tokensPath);
