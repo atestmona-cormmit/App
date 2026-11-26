@@ -28,6 +28,6 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
-    // مكتبة Node.js Mobile
-    implementation 'com.janeasystems.rn-nodejs-mobile:nodejs-mobile:18.0.0'
+    // المسار الصحيح لمكتبة Node.js Mobile
+    implementation 'com.janeasystems:nodejs-mobile:18.0.0'
 }
