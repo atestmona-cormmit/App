@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' } // مستودع JitPack لجلب مكتبة Node.js
     }
 }
 rootProject.name = "WolfRunner"
